@@ -1,5 +1,118 @@
-const Favorites = () => {
-  return;
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+
+const Favorites = ({
+  handleFavoriteCharacters,
+  favoriteCharacters,
+  isFavoriteCharacter,
+  handleFavoriteComics,
+  favoriteComics,
+  isFavoriteComic,
+}) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [charactersData, setCharactersData] = useState();
+  const [comicsData, setComicsData] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const favoriteCharactersData = await Promise.all(
+          favoriteCharacters.map(async (characterId) => {
+            const response = await axios.get(
+              `https://site--marvel-backend--vcs8yyfznmn8.code.run/character/${characterId}`
+            );
+            // console.log(data);
+            return response.data;
+          })
+        );
+        setCharactersData(favoriteCharactersData);
+        const favoriteComicsData = await Promise.all(
+          favoriteComics.map(async (comicId) => {
+            const response = await axios.get(
+              `https://site--marvel-backend--vcs8yyfznmn8.code.run/comic/${comicId}`
+            );
+            // console.log(data);
+            return response.data;
+          })
+        );
+        setComicsData(favoriteComicsData);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error.response);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [favoriteCharacters, favoriteComics]);
+
+  return isLoading ? (
+    <span className="container">
+      Great content loading, thank you for your patience...
+    </span>
+  ) : (
+    <div className="container favorites-main">
+      <div className="list-container">
+        <h2>Favorite characters</h2>
+        <div className="list">
+          {charactersData.length > 0 &&
+            charactersData.map((character) => {
+              return (
+                <Link to={`/character/${character._id}`} key={character._id}>
+                  <div className="card">
+                    <img
+                      src={`${character.thumbnail.path}/portrait_uncanny.jpg`}
+                      alt={character.name}
+                    />
+                    <h3>{character.name}</h3>
+                    <p>{character.description}</p>
+                    <button
+                      className={
+                        isFavoriteCharacter(character._id) ? "favorite" : ""
+                      }
+                      onClick={() => {
+                        handleFavoriteCharacters(character._id);
+                      }}
+                    >
+                      add to favorites
+                    </button>
+                  </div>
+                </Link>
+              );
+            })}
+        </div>
+      </div>
+      <div className="list-container">
+        <h2>Favorite comics</h2>
+        <div className="list">
+          {comicsData.length > 0 &&
+            comicsData.map((comic) => {
+              return (
+                <Link to={`/comic/${comic._id}`} key={comic._id}>
+                  <div className="card">
+                    <img
+                      src={`${comic.thumbnail.path}/portrait_uncanny.jpg`}
+                      alt={comic.title}
+                    />
+                    <h3>{comic.title}</h3>
+                    <p>{comic.description}</p>
+                    <button
+                      className={isFavoriteComic(comic._id) ? "favorite" : ""}
+                      onClick={() => {
+                        handleFavoriteComics(comic._id);
+                      }}
+                    >
+                      add to favorites
+                    </button>
+                  </div>
+                </Link>
+              );
+            })}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Favorites;

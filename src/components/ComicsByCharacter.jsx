@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ComicsByCharacter = ({ comicsToDisplay }) => {
+const ComicsByCharacter = ({
+  comicsToDisplay,
+  handleFavoriteComics,
+  isFavoriteComic,
+}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
 
@@ -47,8 +52,17 @@ const ComicsByCharacter = ({ comicsToDisplay }) => {
                     src={`${comic.thumbnail.path}/portrait_uncanny.jpg`}
                     alt={comic.title}
                   />
-                  <h3>{comic.title}</h3>
-                  <p>{comic.description}</p>
+                  <div className="star-div">
+                    <h3>{comic.title}</h3>
+                    <button
+                      className={isFavoriteComic(comic._id) ? "favorite" : ""}
+                      onClick={() => {
+                        handleFavoriteComics(comic._id);
+                      }}
+                    >
+                      <FontAwesomeIcon icon="star" />
+                    </button>
+                  </div>
                 </div>
               </Link>
             );

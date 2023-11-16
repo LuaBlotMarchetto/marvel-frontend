@@ -2,8 +2,14 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ComicsByCharacter from "../components/ComicsByCharacter";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Character = ({ handleFavorites, isFavorite }) => {
+const Character = ({
+  handleFavoriteCharacters,
+  isFavoriteCharacter,
+  handleFavoriteComics,
+  isFavoriteComic,
+}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
   const { characterId } = useParams();
@@ -39,6 +45,20 @@ const Character = ({ handleFavorites, isFavorite }) => {
             alt={character.title}
           />
           <div className="content-info">
+            <div className="star-div">
+              <button
+                className={
+                  isFavoriteCharacter(character._id)
+                    ? "favorite"
+                    : "not-favorite"
+                }
+                onClick={() => {
+                  handleFavoriteCharacters(character._id);
+                }}
+              >
+                <FontAwesomeIcon icon="star" />
+              </button>
+            </div>{" "}
             <h2>{character.name}</h2>
             <p>{character.description}</p>
             <button>
@@ -52,14 +72,6 @@ const Character = ({ handleFavorites, isFavorite }) => {
                 I want to know more !
               </a>
             </button>
-            <button
-              className={isFavorite ? "favorite" : ""}
-              onClick={() => {
-                handleFavorites(character._id);
-              }}
-            >
-              add to favorites
-            </button>
           </div>
         </div>
       </div>
@@ -70,7 +82,11 @@ const Character = ({ handleFavorites, isFavorite }) => {
           className="image-for-background "
         />
       </div>
-      <ComicsByCharacter comicsToDisplay={character.comics} />
+      <ComicsByCharacter
+        comicsToDisplay={character.comics}
+        handleFavoriteComics={handleFavoriteComics}
+        isFavoriteComic={isFavoriteComic}
+      />
     </main>
   );
 };

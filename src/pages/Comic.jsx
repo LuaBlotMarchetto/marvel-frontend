@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const Comic = () => {
+const Comic = ({ handleFavoriteComics, isFavoriteComic }) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const { comicId } = useParams();
@@ -50,6 +50,14 @@ const Comic = () => {
               >
                 I want to know more !
               </a>
+            </button>
+            <button
+              className={isFavoriteComic(comic._id) ? "favorite" : ""}
+              onClick={() => {
+                handleFavoriteComics(comic._id);
+              }}
+            >
+              add to favorites
             </button>
           </div>
         </div>

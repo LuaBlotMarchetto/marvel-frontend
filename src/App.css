@@ -208,7 +208,7 @@ header img {
 }
 
 .card img {
-  object-fit: cover;
+  width: 100%;
 }
 
 .card:hover {
@@ -220,7 +220,6 @@ header img {
   color: white;
   font-weight: bold;
   font-size: 16px;
-  margin-top: 20px;
   letter-spacing: 2px;
 }
 
@@ -239,7 +238,7 @@ header img {
 /*COMIC*/
 
 .image-for-background {
-  border: orange solid;
+  /* border: orange solid; */
   width: 100%;
   height: 700px;
   object-fit: cover;
@@ -282,18 +281,22 @@ header img {
 .content-info {
   display: flex;
   flex-direction: column;
+  gap: 15px;
+  border: purple solid;
 }
 
 .content-info h2 {
   font-size: 40px;
-  margin-bottom: 80px;
+  /* margin-bottom: 80px; */
+  border: violet solid;
 }
+
 .content-info p {
   font-size: 18px;
   line-height: 1.2;
 }
 
-.content-info button:not(.favorite) {
+.content-info button {
   padding: 20px 30px;
   border-radius: 30px;
   font-size: 16px;
@@ -308,17 +311,44 @@ header img {
   background-color: #ed171e;
 }
 
-.favorite {
-  padding: 20px 30px;
-  border-radius: 30px;
-  font-size: 16px;
-  border: none;
-  background-color: blue;
-  color: white;
-  margin-top: 80px;
-  width: 250px;
+.star-div {
+  border: orange solid;
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* justify-content: space-between; */
+  /* align-items: center; */
+  /* margin-top: 20px; */
+  height: 100px;
 }
 
+.star-div .not-favorite {
+  border: green solid;
+  /* border: none; */
+  background-color: transparent;
+  color: white;
+  padding: 0;
+  border-radius: 0px;
+  font-size: 16px;
+  width: 50px;
+}
+
+.star-div .favorite {
+  color: red;
+  /* border: none; */
+  border: green solid;
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0px;
+  font-size: 16px;
+  width: 50px;
+}
+
+/*FAVORITES*/
+
+.favorites-main {
+  display: flex;
+  flex-direction: column;
+}
 /*FOOTER*/
 footer {
   display: flex;

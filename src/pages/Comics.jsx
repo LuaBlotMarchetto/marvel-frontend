@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const Comics = () => {
+const Comics = ({ handleFavoriteComics, isFavoriteComic }) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -42,6 +42,14 @@ const Comics = () => {
                   <h3>{comic.title}</h3>
                   <p>{comic.description}</p>
                 </div>
+                <button
+                  className={isFavoriteComic(comic._id) ? "favorite" : ""}
+                  onClick={() => {
+                    handleFavoriteComics(comic._id);
+                  }}
+                >
+                  add to favorites
+                </button>
               </Link>
             );
           })}

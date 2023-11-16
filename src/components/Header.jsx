@@ -7,6 +7,9 @@ const Header = () => {
         <nav>
           <div>
             <Link to="/">
+              <button>SEARCH</button>
+            </Link>
+            <Link to="/">
               <button>CHARACTERS</button>
             </Link>
             <Link to="/comics">

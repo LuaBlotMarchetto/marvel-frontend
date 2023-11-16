@@ -1,49 +1,26 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Characters = () => {
-  const [data, setData] = useState();
+const Characters = ({ handleFavoriteCharacters, isFavoriteCharacter }) => {
+  const [charactersData, setCharactersData] = useState();
   const [isLoading, setIsLoading] = useState(true);
-
-  const [search, setSearch] = useState(1);
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(100);
-  const [skip, setSkip] = useState();
-  const [name, setName] = useState();
-  const [sort, setSort] = useState("price-asc");
-
-  console.log(setLimit, setSkip, setName, setSort, setSearch);
-
-  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://site--marvel-backend--vcs8yyfznmn8.code.run/characters?` +
-            (search !== undefined ? `&title=${name}` : "") +
-            (page !== undefined ? `&page=${page}` : "") +
-            (limit !== undefined ? `&limit=${limit}` : "") +
-            (sort !== undefined ? `&skip=${skip}` : "")
+          `https://site--marvel-backend--vcs8yyfznmn8.code.run/characters?`
         );
-        setData(response.data);
+        setCharactersData(response.data);
         setIsLoading(false);
-        setTotalPages(Math.ceil(response.data.count / limit));
       } catch (error) {
         console.log(error.response);
       }
     };
     fetchData();
-  }, [page, limit, skip, name]);
-
-  const pageNumber = [];
-  for (let index = 0; index < totalPages; index++) {
-    const number = index + 1;
-    pageNumber.push(number);
-  }
-
-  console.log(page);
+  }, []);
 
   return isLoading ? (
     <span className="container">
@@ -57,33 +34,34 @@ const Characters = () => {
         </div>
         <div>
           <div className="list">
-            {data.map((character) => {
+            {charactersData.map((character) => {
               return (
-                <Link to={`/character/${character._id}`} key={character._id}>
-                  <div className="card">
-                    <img
-                      src={`${character.thumbnail.path}/portrait_medium.jpg`}
-                      alt={character.name}
-                    />
-                    <h3>{character.name}</h3>
-                    <p>{character.description}</p>
-                  </div>
-                </Link>
+                <div key={character._id} className="card">
+                  <Link to={`/character/${character._id}`}>
+                    <div>
+                      <img
+                        src={`${character.thumbnail.path}/portrait_medium.jpg`}
+                        alt={character.name}
+                      />
+                      <div className="star-div">
+                        <h3>{character.name}</h3>
+                        <button
+                          className={
+                            isFavoriteCharacter(character._id) ? "favorite" : ""
+                          }
+                          onClick={() => {
+                            handleFavoriteCharacters(character._id);
+                          }}
+                        >
+                          <FontAwesomeIcon icon="star" />
+                        </button>
+                      </div>
+                      <p>{character.description}</p>
+                    </div>
+                  </Link>
+                </div>
               );
             })}
-          </div>
-          <div className="pagination">
-            {pageNumber.map((number) => (
-              <button
-                key={number}
-                onClick={() => {
-                  setPage(number);
-                }}
-                className={number === page ? "current-page" : ""}
-              >
-                {number}
-              </button>
-            ))}
           </div>
         </div>
       </div>

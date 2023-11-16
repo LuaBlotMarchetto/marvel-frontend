@@ -2,7 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./App.css";
 import Cookies from "js-cookie";
-// import { useState } from "react";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+library.add(faStar);
 
 //PAGES
 import Home from "./pages/Home";
@@ -18,47 +20,145 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 function App() {
-  const [favorites, setFavorites] = useState(
-    JSON.parse(Cookies.get("favorites"))
-  );
-  const [isFavorite, setIsFavorite] = useState(false);
+  //récupération des cookies pour les favoris
 
-  const handleFavorites = (element) => {
-    if (!favorites.includes(element)) {
-      setIsFavorite(true);
-      const updatedFavorites = [...favorites];
-      updatedFavorites.push(element);
-      setFavorites(updatedFavorites);
+  const storedFavoriteCharacters = Cookies.get("favoriteCharacters");
+  const [favoriteCharacters, setFavoriteCharacters] = useState(
+    storedFavoriteCharacters
+      ? JSON.parse(Cookies.get("favoriteCharacters"))
+      : []
+  );
+
+  const storedFavoriteComics = Cookies.get("favoriteComics");
+  const [favoriteComics, setFavoriteComics] = useState(
+    storedFavoriteComics ? JSON.parse(Cookies.get("favoriteComics")) : []
+  );
+
+  //mise à jour des cookies lors du changement de valeur des états des favoris
+  useEffect(() => {
+    Cookies.set("favoriteCharacters", JSON.stringify(favoriteCharacters), {
+      expires: 20,
+    });
+    console.log("contenu des cookies", favoriteCharacters);
+  }, [favoriteCharacters]);
+
+  useEffect(() => {
+    Cookies.set("favoriteComics", JSON.stringify(favoriteComics), {
+      expires: 20,
+    });
+    console.log("contenu des cookies", favoriteComics);
+  }, [favoriteComics]);
+
+  //fonction de changement des états des favoris (ajout / suppression)
+  const handleFavoriteCharacters = (characterId) => {
+    if (!favoriteCharacters.includes(characterId)) {
+      console.log("adding to favorites", favoriteCharacters);
+      const updatedFavoriteCharacters = [...favoriteCharacters];
+      updatedFavoriteCharacters.push(characterId);
+      setFavoriteCharacters(updatedFavoriteCharacters);
     } else {
-      setIsFavorite(false);
-      const updatedFavorites = favorites.filter(
-        (newElement) => newElement._id !== element._id
-      );
-      setFavorites(updatedFavorites);
+      console.log("deleting from favorite", favoriteCharacters);
+      const updatedFavoriteCharacters = [...favoriteCharacters];
+      const updatedFavoriteCharactersFiltered =
+        updatedFavoriteCharacters.filter(
+          (newElementId) => newElementId !== characterId
+        );
+
+      setFavoriteCharacters(updatedFavoriteCharactersFiltered);
     }
   };
 
-  useEffect(() => {
-    Cookies.set("favorites", JSON.stringify(favorites));
-  }, [favorites, isFavorite]);
+  const handleFavoriteComics = (comicId) => {
+    if (!favoriteComics.includes(comicId)) {
+      console.log("adding to favorites", favoriteComics);
+      const updatedFavoriteComics = [...favoriteComics];
+      updatedFavoriteComics.push(comicId);
+      setFavoriteComics(updatedFavoriteComics);
+    } else {
+      console.log("deleting from favorite", favoriteComics);
+      const updatedFavoriteComics = [...favoriteComics];
+      const updatedFavoriteComicsFiltered = updatedFavoriteComics.filter(
+        (newElementId) => newElementId !== comicId
+      );
+
+      setFavoriteComics(updatedFavoriteComicsFiltered);
+    }
+  };
+
+  //booleen pour gestion de la signalétique des favoris
+  const isFavoriteCharacter = (characterId) => {
+    if (favoriteCharacters.includes(characterId)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const isFavoriteComic = (comicId) => {
+    if (favoriteComics.includes(comicId)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   return (
     <Router>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <Home
+              handleFavoriteComics={handleFavoriteComics}
+              isFavoriteComic={isFavoriteComic}
+              handleFavoriteCharacters={handleFavoriteCharacters}
+              isFavoriteCharacter={isFavoriteCharacter}
+            />
+          }
+        />
         <Route
           path="/character/:characterId"
           element={
             <Character
-              handleFavorites={handleFavorites}
-              isFavorite={isFavorite}
+              handleFavoriteCharacters={handleFavoriteCharacters}
+              isFavoriteCharacter={isFavoriteCharacter}
+              handleFavoriteComics={handleFavoriteComics}
+              isFavoriteComic={isFavoriteComic}
             />
           }
         />
-        <Route path="/comics" element={<Comics />} />
-        <Route path="/comic/:comicId" element={<Comic />} />
-        <Route path="/favorites" element={<Favorites />} />
+        <Route
+          path="/comics"
+          element={
+            <Comics
+              handleFavoriteComics={handleFavoriteComics}
+              isFavoriteComic={isFavoriteComic}
+            />
+          }
+        />
+        <Route
+          path="/comic/:comicId"
+          element={
+            <Comic
+              handleFavoriteComics={handleFavoriteComics}
+              isFavoriteComic={isFavoriteComic}
+            />
+          }
+        />
+        <Route
+          path="/favorites"
+          element={
+            <Favorites
+              handleFavoriteCharacters={handleFavoriteCharacters}
+              isFavoriteCharacter={isFavoriteCharacter}
+              favoriteCharacters={favoriteCharacters}
+              handleFavoriteComics={handleFavoriteComics}
+              isFavoriteComic={isFavoriteComic}
+              favoriteComics={favoriteComics}
+            />
+          }
+        />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
       </Routes>
