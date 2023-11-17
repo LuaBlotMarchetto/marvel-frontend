@@ -12,25 +12,36 @@ const Characters = ({
   const [charactersData, setCharactersData] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
+  const [totalPages, setTotalPages] = useState(1);
+  const [page, setPage] = useState(1);
+  const [skip, setSkip] = useState(0);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
           `https://site--marvel-backend--vcs8yyfznmn8.code.run/characters?` +
-            (characterSearch !== undefined ? `&name=${characterSearch}` : "")
+            (characterSearch !== undefined ? `&name=${characterSearch}` : "") +
+            (skip !== undefined ? `&skip=${skip}` : "") +
+            (page !== undefined ? `&page=${page}` : "")
         );
-        console.log(response);
-        setCharactersData(response.data);
-        console.log("rerendering");
-        // console.log(search);
-        console.log(charactersData);
+        setCharactersData(response.data.results);
+        console.log(response.data);
         setIsLoading(false);
+        setTotalPages(Math.ceil(response.data.count / response.data.limit));
+        console.log(totalPages);
       } catch (error) {
         console.log(error.response);
       }
     };
     fetchData();
-  }, [characterSearch]);
+  }, [characterSearch, page]);
+
+  const pageNumber = [];
+  for (let index = 0; index < totalPages; index++) {
+    const number = index + 1;
+    pageNumber.push(number);
+  }
 
   return isLoading ? (
     <span className="container">
@@ -80,6 +91,20 @@ const Characters = ({
               );
             })}
           </div>
+        </div>
+        <div className="pagination">
+          {pageNumber.map((number) => (
+            <button
+              key={number}
+              onClick={() => {
+                setPage(number);
+                setSkip(100 * (number - 1));
+              }}
+              className={number === page ? "pagination-active" : ""}
+            >
+              {number}
+            </button>
+          ))}
         </div>
       </div>
     </div>

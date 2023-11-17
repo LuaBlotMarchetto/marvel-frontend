@@ -11,6 +11,9 @@ const Comics = ({
 }) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [totalPages, setTotalPages] = useState(1);
+  const [page, setPage] = useState(1);
+  const [skip, setSkip] = useState(0);
   // const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,17 +21,26 @@ const Comics = ({
       try {
         const response = await axios.get(
           `https://site--marvel-backend--vcs8yyfznmn8.code.run/comics?` +
-            (comicSearch !== undefined ? `&title=${comicSearch}` : "")
+            (comicSearch !== undefined ? `&title=${comicSearch}` : "") +
+            (skip !== undefined ? `&skip=${skip}` : "") +
+            (page !== undefined ? `&page=${page}` : "")
         );
 
-        setData(response.data);
+        setData(response.data.results);
         setIsLoading(false);
+        setTotalPages(Math.ceil(response.data.count / response.data.limit));
       } catch (error) {
         console.log(error.response);
       }
     };
     fetchData();
-  }, [comicSearch]);
+  }, [comicSearch, page]);
+
+  const pageNumber = [];
+  for (let index = 0; index < totalPages; index++) {
+    const number = index + 1;
+    pageNumber.push(number);
+  }
 
   return isLoading ? (
     <span className="container">
@@ -78,6 +90,20 @@ const Comics = ({
               </Link>
             );
           })}
+        </div>
+        <div className="pagination">
+          {pageNumber.map((number) => (
+            <button
+              key={number}
+              onClick={() => {
+                setPage(number);
+                setSkip(100 * (number - 1));
+              }}
+              className={number === page ? "pagination-active" : ""}
+            >
+              {number}
+            </button>
+          ))}
         </div>
       </div>
     </main>

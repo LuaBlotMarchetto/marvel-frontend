@@ -18,10 +18,12 @@ main {
   display: flex;
   flex-direction: column;
   /* background-color: orange; */
+  padding-bottom: 150px;
 }
 
 .container {
   display: flex;
+  /* flex-direction: column; */
   max-width: 1300px;
   margin: 0 auto;
   padding-left: 30px;
@@ -34,6 +36,37 @@ Link:hover {
 
 button:hover {
   cursor: pointer;
+}
+
+.pagination {
+  display: flex;
+  justify-content: flex-start;
+  /* gap: 15px; */
+  height: 70px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  padding: 20px;
+  /* border: blue solid; */
+}
+
+.pagination button {
+  border: #ed171e solid 1px;
+  color: #ed171e;
+  background-color: transparent;
+  padding: 0 20px;
+  /* border: none; */
+  /* width: 70px; */
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.pagination button:hover {
+  transform: scale(1.2);
+}
+
+.pagination .pagination-active {
+  background-color: #ed171e;
+  color: white;
 }
 
 /*HEADER*/

@@ -57,7 +57,7 @@ const Favorites = ({
     <div className="container favorites-main">
       <div className="list-container">
         <h5>Favorite characters</h5>
-        <ScrollCarousel autoplay autoplaySpeed={1} speed={6}>
+        <ScrollCarousel autolay autoplaySpeed={1} speed={6}>
           <div className="carrousel">
             {charactersData.length > 0 &&
               charactersData.map((character) => {
