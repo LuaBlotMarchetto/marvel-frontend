@@ -6,6 +6,7 @@ const Home = ({
   isFavoriteComic,
   handleFavoriteCharacters,
   isFavoriteCharacter,
+  characterSearch,
 }) => {
   return (
     <main>
@@ -15,6 +16,7 @@ const Home = ({
         isFavoriteComic={isFavoriteComic}
         handleFavoriteCharacters={handleFavoriteCharacters}
         isFavoriteCharacter={isFavoriteCharacter}
+        characterSearch={characterSearch}
       ></Characters>
     </main>
   );

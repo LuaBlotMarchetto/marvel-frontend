@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ScrollCarousel from "scroll-carousel-react";
+// import Slider from "react-slick";
 
 const ComicsByCharacter = ({
   comicsToDisplay,
@@ -41,35 +43,55 @@ const ComicsByCharacter = ({
     </span>
   ) : (
     <div className="container">
-      <div className="list-container">
-        <h2>Featured in the following comics</h2>
-        <div className="list">
-          {data.map((comic) => {
-            return (
-              <Link to={`/comic/${comic._id}`} key={comic._id}>
-                <div className="card">
-                  <img
-                    src={`${comic.thumbnail.path}/portrait_uncanny.jpg`}
-                    alt={comic.title}
-                  />
-                  <div className="star-div-list">
-                    <h3>{comic.title}</h3>
-                    <button
-                      className={
-                        isFavoriteComic(comic._id) ? "favorite" : "not-favorite"
-                      }
-                      onClick={() => {
-                        handleFavoriteComics(comic._id);
-                      }}
-                    >
-                      <FontAwesomeIcon icon="star" />
-                    </button>
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
+      <div className="list-container ">
+        <h4>Featured in the following comics</h4>
+        <ScrollCarousel autoplay autoplaySpeed={1} speed={6}>
+          <div className="carrousel">
+            {/* <FontAwesomeIcon
+              icon="circle-left"
+              className="arrow"
+              onClick={() => scroll("left")}
+            /> */}
+            <div>
+              {data.map((comic) => {
+                return (
+                  <Link to={`/comic/${comic._id}`} key={comic._id}>
+                    <div className="card">
+                      <img
+                        src={`${comic.thumbnail.path}/portrait_uncanny.jpg`}
+                        alt={comic.title}
+                      />
+                      <div className="card-content">
+                        <div className="star-div-list">
+                          <h3>{comic.title}</h3>
+                          <button
+                            className={
+                              isFavoriteComic(comic._id)
+                                ? "favorite"
+                                : "not-favorite"
+                            }
+                            onClick={() => {
+                              handleFavoriteComics(comic._id);
+                            }}
+                          >
+                            <FontAwesomeIcon icon="star" />
+                          </button>
+                        </div>
+                        <p>{comic.description}</p>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+            {/* <FontAwesomeIcon
+              icon="circle-right"
+              className="arrow"
+              onClick={() => scroll("right")}
+            /> */}
+          </div>
+        </ScrollCarousel>
+        {/* </Slider> */}
       </div>
     </div>
   );

@@ -1,14 +1,23 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ characterSearch, setCharacterSearch }) => {
+  const navigate = useNavigate();
   return (
     <header>
-      <div className="container">
+      <div className="">
         <nav>
           <div>
-            <Link to="/">
-              <button>SEARCH</button>
-            </Link>
+            <input
+              type="text"
+              placeholder="search for a character"
+              className="search-input"
+              value={characterSearch}
+              onChange={(event) => {
+                setCharacterSearch(event.target.value);
+                navigate("/");
+              }}
+            />
+
             <Link to="/">
               <button>CHARACTERS</button>
             </Link>
@@ -16,10 +25,11 @@ const Header = () => {
               <button>COMICS</button>
             </Link>
           </div>
-
-          <Link to="/">
-            <img src="src/assets/images/logo.png" alt="" />
-          </Link>
+          <div>
+            <Link to="/">
+              <img src="src/assets/images/logo.png" alt="" />
+            </Link>
+          </div>
 
           <div>
             <Link to="/favorites">

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ScrollCarousel from "scroll-carousel-react";
 
 const Favorites = ({
   handleFavoriteCharacters,
@@ -55,72 +56,80 @@ const Favorites = ({
   ) : (
     <div className="container favorites-main">
       <div className="list-container">
-        <h2>Favorite characters</h2>
-        <div className="list">
-          {charactersData.length > 0 &&
-            charactersData.map((character) => {
-              return (
-                <Link to={`/character/${character._id}`} key={character._id}>
-                  <div className="card">
-                    <img
-                      src={`${character.thumbnail.path}/portrait_uncanny.jpg`}
-                      alt={character.name}
-                    />
-                    <div className="star-div-list">
-                      <h3>{character.name}</h3>
-                      <button
-                        className={
-                          isFavoriteCharacter(character._id)
-                            ? "favorite"
-                            : "not-favorite"
-                        }
-                        onClick={() => {
-                          handleFavoriteCharacters(character._id);
-                        }}
-                      >
-                        <FontAwesomeIcon icon="star" />
-                      </button>
+        <h5>Favorite characters</h5>
+        <ScrollCarousel autoplay autoplaySpeed={1} speed={6}>
+          <div className="carrousel">
+            {charactersData.length > 0 &&
+              charactersData.map((character) => {
+                return (
+                  <Link to={`/character/${character._id}`} key={character._id}>
+                    <div className="card">
+                      <img
+                        src={`${character.thumbnail.path}/portrait_uncanny.jpg`}
+                        alt={character.name}
+                      />
+                      <div className="card-content">
+                        <div className="star-div-list">
+                          <h3>{character.name}</h3>
+                          <button
+                            className={
+                              isFavoriteCharacter(character._id)
+                                ? "favorite"
+                                : "not-favorite"
+                            }
+                            onClick={() => {
+                              handleFavoriteCharacters(character._id);
+                            }}
+                          >
+                            <FontAwesomeIcon icon="star" />
+                          </button>
+                        </div>
+                        <p>{character.description}</p>
+                      </div>
                     </div>
-                    <p>{character.description}</p>
-                  </div>
-                </Link>
-              );
-            })}
-        </div>
+                  </Link>
+                );
+              })}
+          </div>
+        </ScrollCarousel>
       </div>
       <div className="list-container">
-        <h2>Favorite comics</h2>
-        <div className="list">
-          {comicsData.length > 0 &&
-            comicsData.map((comic) => {
-              return (
-                <Link to={`/comic/${comic._id}`} key={comic._id}>
-                  <div className="card">
-                    <img
-                      src={`${comic.thumbnail.path}/portrait_uncanny.jpg`}
-                      alt={comic.title}
-                    />
-                    <div className="star-div-list">
-                      <h3>{comic.title}</h3>
-                      <button
-                        className={
-                          isFavoriteComic(comic._id)
-                            ? "favorite"
-                            : "not-favorite"
-                        }
-                        onClick={() => {
-                          handleFavoriteComics(comic._id);
-                        }}
-                      >
-                        <FontAwesomeIcon icon="star" />
-                      </button>
+        <h5>Favorite comics</h5>
+        <ScrollCarousel autoplay autoplaySpeed={1} speed={6}>
+          <div className="carrousel">
+            {comicsData.length > 0 &&
+              comicsData.map((comic) => {
+                return (
+                  <Link to={`/comic/${comic._id}`} key={comic._id}>
+                    <div className="card">
+                      <img
+                        src={`${comic.thumbnail.path}/portrait_uncanny.jpg`}
+                        alt={comic.title}
+                      />
+                      <div className="card-content">
+                        <div className="star-div-list">
+                          <h3>{comic.title}</h3>
+                          <button
+                            className={
+                              isFavoriteComic(comic._id)
+                                ? "favorite"
+                                : "not-favorite"
+                            }
+                            onClick={() => {
+                              handleFavoriteComics(comic._id);
+                            }}
+                          >
+                            <FontAwesomeIcon icon="star" />
+                          </button>
+                        </div>
+                        <p>{comic.description}</p>
+                      </div>
                     </div>
-                    <p>{comic.description}</p>
-                  </div>
-                </Link>
-              );
-            })}
-        </div>
+                  </Link>
+                );
+              })}
+          </div>
+        </ScrollCarousel>
       </div>
     </div>
   );

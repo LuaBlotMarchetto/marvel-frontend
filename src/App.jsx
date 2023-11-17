@@ -4,7 +4,11 @@ import "./App.css";
 import Cookies from "js-cookie";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faCircleRight } from "@fortawesome/free-solid-svg-icons";
 library.add(faStar);
+library.add(faCircleLeft);
+library.add(faCircleRight);
 
 //PAGES
 import Home from "./pages/Home";
@@ -20,6 +24,9 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 function App() {
+  const [characterSearch, setCharacterSearch] = useState("");
+  const [comicSearch, setComicSearch] = useState("");
+
   //récupération des cookies pour les favoris
 
   const storedFavoriteCharacters = Cookies.get("favoriteCharacters");
@@ -102,9 +109,26 @@ function App() {
     }
   };
 
+  //fonction pour le scroll des caroussel
+
+  const scroll = (direction, ref) => {
+    console.log("inside the scroll function");
+    const scrollAmount = 1000;
+    const container = ref.current;
+
+    if (direction === "left") {
+      container.scrollLeft -= scrollAmount;
+    } else {
+      container.scrollLeft += scrollAmount;
+    }
+  };
+
   return (
     <Router>
-      <Header />
+      <Header
+        characterSearch={characterSearch}
+        setCharacterSearch={setCharacterSearch}
+      />
       <Routes>
         <Route
           path="/"
@@ -114,6 +138,8 @@ function App() {
               isFavoriteComic={isFavoriteComic}
               handleFavoriteCharacters={handleFavoriteCharacters}
               isFavoriteCharacter={isFavoriteCharacter}
+              scroll={(direction, ref) => scroll(direction, ref)}
+              characterSearch={characterSearch}
             />
           }
         />
@@ -125,6 +151,7 @@ function App() {
               isFavoriteCharacter={isFavoriteCharacter}
               handleFavoriteComics={handleFavoriteComics}
               isFavoriteComic={isFavoriteComic}
+              scroll={(direction, ref) => scroll(direction, ref)}
             />
           }
         />
@@ -134,6 +161,8 @@ function App() {
             <Comics
               handleFavoriteComics={handleFavoriteComics}
               isFavoriteComic={isFavoriteComic}
+              comicSearch={comicSearch}
+              setComicSearch={setComicSearch}
             />
           }
         />

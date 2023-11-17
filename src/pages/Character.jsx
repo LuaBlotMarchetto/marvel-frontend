@@ -9,6 +9,7 @@ const Character = ({
   isFavoriteCharacter,
   handleFavoriteComics,
   isFavoriteComic,
+  scroll,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
@@ -88,6 +89,7 @@ const Character = ({
         comicsToDisplay={character.comics}
         handleFavoriteComics={handleFavoriteComics}
         isFavoriteComic={isFavoriteComic}
+        scroll={(direction, ref) => scroll(direction, ref)}
       />
     </main>
   );
