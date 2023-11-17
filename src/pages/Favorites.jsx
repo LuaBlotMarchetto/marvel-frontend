@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Favorites = ({
   handleFavoriteCharacters,
@@ -65,18 +66,22 @@ const Favorites = ({
                       src={`${character.thumbnail.path}/portrait_uncanny.jpg`}
                       alt={character.name}
                     />
-                    <h3>{character.name}</h3>
+                    <div className="star-div-list">
+                      <h3>{character.name}</h3>
+                      <button
+                        className={
+                          isFavoriteCharacter(character._id)
+                            ? "favorite"
+                            : "not-favorite"
+                        }
+                        onClick={() => {
+                          handleFavoriteCharacters(character._id);
+                        }}
+                      >
+                        <FontAwesomeIcon icon="star" />
+                      </button>
+                    </div>
                     <p>{character.description}</p>
-                    <button
-                      className={
-                        isFavoriteCharacter(character._id) ? "favorite" : ""
-                      }
-                      onClick={() => {
-                        handleFavoriteCharacters(character._id);
-                      }}
-                    >
-                      add to favorites
-                    </button>
                   </div>
                 </Link>
               );
@@ -95,16 +100,22 @@ const Favorites = ({
                       src={`${comic.thumbnail.path}/portrait_uncanny.jpg`}
                       alt={comic.title}
                     />
-                    <h3>{comic.title}</h3>
+                    <div className="star-div-list">
+                      <h3>{comic.title}</h3>
+                      <button
+                        className={
+                          isFavoriteComic(comic._id)
+                            ? "favorite"
+                            : "not-favorite"
+                        }
+                        onClick={() => {
+                          handleFavoriteComics(comic._id);
+                        }}
+                      >
+                        <FontAwesomeIcon icon="star" />
+                      </button>
+                    </div>
                     <p>{comic.description}</p>
-                    <button
-                      className={isFavoriteComic(comic._id) ? "favorite" : ""}
-                      onClick={() => {
-                        handleFavoriteComics(comic._id);
-                      }}
-                    >
-                      add to favorites
-                    </button>
                   </div>
                 </Link>
               );

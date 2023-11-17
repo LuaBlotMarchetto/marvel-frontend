@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Comic = ({ handleFavoriteComics, isFavoriteComic }) => {
   const [data, setData] = useState();
@@ -38,9 +39,23 @@ const Comic = ({ handleFavoriteComics, isFavoriteComic }) => {
             alt={comic.title}
           />
           <div className="content-info">
-            <h2>{comic.title}</h2>
+            <div className="star-div-individual">
+              <h2>{comic.title}</h2>
+              <div className="star">
+                <button
+                  className={
+                    isFavoriteComic(comic._id) ? "favorite" : "not-favorite"
+                  }
+                  onClick={() => {
+                    handleFavoriteComics(comic._id);
+                  }}
+                >
+                  <FontAwesomeIcon icon="star" />
+                </button>
+              </div>
+            </div>
             <p>{comic.description}</p>
-            <button>
+            <button className="main-button">
               <a
                 href={`https://www.google.com/search?q=${encodeURIComponent(
                   comic.title
@@ -50,14 +65,6 @@ const Comic = ({ handleFavoriteComics, isFavoriteComic }) => {
               >
                 I want to know more !
               </a>
-            </button>
-            <button
-              className={isFavoriteComic(comic._id) ? "favorite" : ""}
-              onClick={() => {
-                handleFavoriteComics(comic._id);
-              }}
-            >
-              add to favorites
             </button>
           </div>
         </div>

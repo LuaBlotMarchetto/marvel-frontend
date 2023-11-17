@@ -52,10 +52,12 @@ const ComicsByCharacter = ({
                     src={`${comic.thumbnail.path}/portrait_uncanny.jpg`}
                     alt={comic.title}
                   />
-                  <div className="star-div">
+                  <div className="star-div-list">
                     <h3>{comic.title}</h3>
                     <button
-                      className={isFavoriteComic(comic._id) ? "favorite" : ""}
+                      className={
+                        isFavoriteComic(comic._id) ? "favorite" : "not-favorite"
+                      }
                       onClick={() => {
                         handleFavoriteComics(comic._id);
                       }}

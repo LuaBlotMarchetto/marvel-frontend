@@ -45,23 +45,25 @@ const Character = ({
             alt={character.title}
           />
           <div className="content-info">
-            <div className="star-div">
-              <button
-                className={
-                  isFavoriteCharacter(character._id)
-                    ? "favorite"
-                    : "not-favorite"
-                }
-                onClick={() => {
-                  handleFavoriteCharacters(character._id);
-                }}
-              >
-                <FontAwesomeIcon icon="star" />
-              </button>
-            </div>{" "}
-            <h2>{character.name}</h2>
+            <div className="star-div-individual">
+              <h2>{character.name}</h2>
+              <div className="star">
+                <button
+                  className={
+                    isFavoriteCharacter(character._id)
+                      ? "favorite"
+                      : "not-favorite"
+                  }
+                  onClick={() => {
+                    handleFavoriteCharacters(character._id);
+                  }}
+                >
+                  <FontAwesomeIcon icon="star" />
+                </button>
+              </div>
+            </div>
             <p>{character.description}</p>
-            <button>
+            <button className="main-button">
               <a
                 href={`https://www.google.com/search?q=${encodeURIComponent(
                   character.name

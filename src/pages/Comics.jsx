@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Comics = ({ handleFavoriteComics, isFavoriteComic }) => {
   const [data, setData] = useState();
@@ -39,17 +40,22 @@ const Comics = ({ handleFavoriteComics, isFavoriteComic }) => {
                     src={`${comic.thumbnail.path}/portrait_uncanny.jpg`}
                     alt={comic.title}
                   />
-                  <h3>{comic.title}</h3>
+
+                  <div className="star-div-list">
+                    <h3>{comic.title}</h3>
+                    <button
+                      className={
+                        isFavoriteComic(comic._id) ? "favorite" : "not-favorite"
+                      }
+                      onClick={() => {
+                        handleFavoriteComics(comic._id);
+                      }}
+                    >
+                      <FontAwesomeIcon icon="star" />
+                    </button>
+                  </div>
                   <p>{comic.description}</p>
                 </div>
-                <button
-                  className={isFavoriteComic(comic._id) ? "favorite" : ""}
-                  onClick={() => {
-                    handleFavoriteComics(comic._id);
-                  }}
-                >
-                  add to favorites
-                </button>
               </Link>
             );
           })}

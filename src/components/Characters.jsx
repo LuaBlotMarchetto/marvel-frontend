@@ -43,11 +43,13 @@ const Characters = ({ handleFavoriteCharacters, isFavoriteCharacter }) => {
                         src={`${character.thumbnail.path}/portrait_medium.jpg`}
                         alt={character.name}
                       />
-                      <div className="star-div">
+                      <div className="star-div-list">
                         <h3>{character.name}</h3>
                         <button
                           className={
-                            isFavoriteCharacter(character._id) ? "favorite" : ""
+                            isFavoriteCharacter(character._id)
+                              ? "favorite"
+                              : "not-favorite"
                           }
                           onClick={() => {
                             handleFavoriteCharacters(character._id);
