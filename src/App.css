@@ -1,33 +1,23 @@
-@import url("https://fonts.googleapis.com/css2?family=Kanit&family=Lato&family=Manrope&family=Montserrat&family=Roboto:wght@400;700&display=swap");
-
-@import url("https://fonts.googleapis.com/css2?family=Kanit&family=Lato:wght@400;700&family=Manrope&family=Montserrat&family=Roboto:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kanit&family=Kdam+Thmor+Pro&family=Lato:wght@400;700&family=Manrope&family=Montserrat&family=Roboto:wght@400;700&display=swap");
 
 /*GENERAL*/
 body {
-  font-family: "Lato", sans-serif;
+  font-family: "Kanit", sans-serif;
   position: relative;
   min-height: 100vh;
-  /* background-image: url("/src/assets/images/background-texture.jpg"); */
-  /* background-color: rgb(0, 0, 0); */
-  /* background-position: center; */
-  /* background-repeat: repeat; */
-  /* background-size: cover; */
   color: white;
 }
 main {
   display: flex;
   flex-direction: column;
-  /* background-color: orange; */
   padding-bottom: 150px;
 }
 
 .container {
   display: flex;
-  /* flex-direction: column; */
   max-width: 1300px;
   margin: 0 auto;
   padding-left: 30px;
-  /* border: pink solid; */
 }
 
 Link:hover {
@@ -38,15 +28,15 @@ button:hover {
   cursor: pointer;
 }
 
+/*PAGINATION*/
+
 .pagination {
   display: flex;
   justify-content: flex-start;
-  /* gap: 15px; */
   height: 70px;
   overflow-x: scroll;
   overflow-y: hidden;
   padding: 20px;
-  /* border: blue solid; */
 }
 
 .pagination button {
@@ -54,8 +44,6 @@ button:hover {
   color: #ed171e;
   background-color: transparent;
   padding: 0 20px;
-  /* border: none; */
-  /* width: 70px; */
   border-radius: 50%;
   margin-right: 15px;
 }
@@ -71,7 +59,6 @@ button:hover {
 
 /*HEADER*/
 header {
-  /* border-bottom: rgb(241, 241, 241) solid 1px; */
   background-color: rgba(0, 0, 0, 0.399);
   height: 60px;
   align-items: center;
@@ -82,34 +69,25 @@ header {
   width: 100%;
   position: relative;
   z-index: 1000;
-  /* border: blue solid; */
 }
 
 header > div {
-  /* border: green solid; */
-  /* width: 100%; */
   margin: 0 auto;
-  /* display: flex; */
+
   justify-content: space-evenly;
 }
 
 header div div {
-  /* border: red solid; */
   display: flex;
-  /* align-items: center; */
   justify-content: center;
-  /* width: 30%; */
 }
 
 header button {
   background-color: transparent;
-  /* border: orange solid; */
   border: transparent solid 2px;
   color: white;
   border-radius: 10px;
   padding: 5px 15px;
-  /* margin-right: 25px; */
-  /* margin-left: 25px; */
   height: 45px;
   font-size: 16px;
 }
@@ -135,7 +113,6 @@ header img {
   padding: 5px 10px;
   border: white solid 1px;
   color: white;
-  /* margin-left: 90px; */
   width: 150px;
 }
 
@@ -149,7 +126,6 @@ header img {
   background-size: cover;
   height: 800px;
   display: flex;
-  /* border: yellow solid; */
   align-items: center;
   position: absolute;
   top: 0;
@@ -211,15 +187,12 @@ header img {
   margin: 50px auto 20px auto;
   z-index: 10;
   width: 100%;
-  /* border: orange solid; */
   padding: 0 80px;
-  /* width: 100%; */
 }
 
 .list-container h2 {
   color: rgb(0, 0, 0);
   margin-bottom: 60px;
-  /* text-decoration: underline; */
   font-size: 26px;
   letter-spacing: 4px;
   padding-bottom: 20px;
@@ -233,7 +206,6 @@ header img {
   width: 100%;
   height: 2px;
   background-image: linear-gradient(to right, red, rgb(255, 255, 255));
-  /* background-image: linear-gradient(to right, #697892, black); */
 }
 
 .list-container h4 {
@@ -254,7 +226,6 @@ header img {
   display: flex;
   flex-wrap: wrap;
   gap: 18px;
-  /* border: fuchsia solid; */
   width: 100%;
 }
 
@@ -265,14 +236,12 @@ header img {
   gap: 15px;
   margin-bottom: 60px;
   width: 100%;
-  /* border: green solid; */
 }
 
 .carrousel > div {
   display: flex;
   gap: 15px;
   width: 100%;
-  /* border: violet solid; */
   overflow: hidden;
   flex-wrap: nowrap;
 }
@@ -284,7 +253,6 @@ header img {
 .card {
   display: flex;
   flex-direction: column;
-  /* border: blue solid; */
   border-radius: 10px;
   width: 200px;
   height: 480px;
@@ -337,7 +305,6 @@ header img {
   color: black;
 }
 .image-for-background {
-  /* border: orange solid; */
   width: 100%;
   height: 700px;
   object-fit: cover;
@@ -372,8 +339,6 @@ header img {
   display: flex;
   position: relative;
   z-index: 2;
-  /* border: fuchsia solid; */
-  /* width: 70%; */
   gap: 80px;
 }
 
@@ -381,7 +346,6 @@ header img {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  /* border: purple solid; */
   width: 60%;
   justify-content: center;
 }
@@ -389,20 +353,13 @@ header img {
 .content-info h2 {
   font-size: 50px;
   margin-bottom: 80px;
-  /* border: violet solid; */
-  /* height: 100%; */
 }
 
 .star-div-individual {
-  /* border: orange solid; */
-  /* border: none; */
-  /* width: 10%; */
-  /* background-color: transparent; */
   display: flex;
   flex-direction: row;
   align-items: start;
   justify-content: space-between;
-  /* height: 50px; */
 }
 
 .content-info p {
@@ -428,7 +385,6 @@ header img {
 
 .star {
   height: 100%;
-  /* border: blue solid; */
   display: flex;
   align-items: start;
   margin-left: 30px;
@@ -439,7 +395,6 @@ header img {
 }
 
 .star-div-list {
-  /* border: orange solid; */
   display: flex;
   flex-direction: column-reverse;
   justify-content: space-between;
@@ -461,8 +416,8 @@ header img {
   justify-items: center;
 }
 
+/*FAVORITES*/
 .not-favorite {
-  /* border: green solid; */
   border: none;
   background-color: transparent;
   color: rgba(255, 255, 255, 0.359);
@@ -474,14 +429,12 @@ header img {
   background-color: transparent;
 }
 
-/*FAVORITES*/
-
 .favorites-main {
   display: flex;
   flex-direction: column;
 }
 
-/*SIGNUP*/
+/*SIGNUP AND LOGIN*/
 .connexion-content {
   display: flex;
   flex-direction: column;
@@ -562,7 +515,3 @@ a {
   color: white;
   font-weight: bold;
 }
-
-/* footer p {
-  color: black;
-} */

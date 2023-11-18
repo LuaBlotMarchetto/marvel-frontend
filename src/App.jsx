@@ -24,11 +24,11 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 function App() {
+  //mise en place des états pour recharger les données à afficher
   const [characterSearch, setCharacterSearch] = useState("");
   const [comicSearch, setComicSearch] = useState("");
 
   //récupération des cookies pour les favoris
-
   const storedFavoriteCharacters = Cookies.get("favoriteCharacters");
   const [favoriteCharacters, setFavoriteCharacters] = useState(
     storedFavoriteCharacters
@@ -110,7 +110,6 @@ function App() {
   };
 
   //fonction pour le scroll des caroussel
-
   const scroll = (direction, ref) => {
     console.log("inside the scroll function");
     const scrollAmount = 1000;

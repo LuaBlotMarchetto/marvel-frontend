@@ -14,7 +14,6 @@ const Comics = ({
   const [totalPages, setTotalPages] = useState(1);
   const [page, setPage] = useState(1);
   const [skip, setSkip] = useState(0);
-  // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {

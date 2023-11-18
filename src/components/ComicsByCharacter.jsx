@@ -21,7 +21,6 @@ const ComicsByCharacter = ({
             const response = await axios.get(
               `https://site--marvel-backend--vcs8yyfznmn8.code.run/comic/${comicId}`
             );
-            // console.log(data);
             return response.data;
           })
         );
