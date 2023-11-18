@@ -27,7 +27,7 @@ const Header = ({ characterSearch, setCharacterSearch }) => {
           </div>
           <div>
             <Link to="/">
-              <img src="src/assets/images/logo.png" alt="" />
+              <img src="src/assets/images/logo.png" alt=" Marvellogo" />
             </Link>
           </div>
 
