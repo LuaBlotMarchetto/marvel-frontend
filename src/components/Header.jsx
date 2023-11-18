@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import logo from "../assets/images/logo.png";
 
 const Header = ({ characterSearch, setCharacterSearch }) => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Header = ({ characterSearch, setCharacterSearch }) => {
           </div>
           <div>
             <Link to="/">
-              <img src="src/assets/images/logo.png" alt=" Marvellogo" />
+              <img src={logo} alt=" Marvellogo" />
             </Link>
           </div>
 
